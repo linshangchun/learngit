@@ -1,0 +1,108 @@
+learngit_note_learnBy:(Git教程 - 廖雪峰的官方网站)https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000
+
+1.创建一个版本库
+1.1创建一个空目录 $ mkdir learngit
+1.2进入创建的目录 $ cd learngit
+1.3显示当前目录  $ pwd（文件名路径推荐全英文）
+
+2.将刚创建的目录变成Git可以管理的仓库
+2.1初始化git目录 $ git init
+
+3.把文件添加到版本库
+3.1编写一个文件readme.txt
+3.2添加文件至版本库 $ git add readme.txt（把要提交的所有修改放到暂存区（Stage））
+3.3把文件提交到仓库 $ git commit -m "改动记录描述说明" （一次性把暂存区的所有修改提交到分支）
+3.4可添加多个文件并一次性提交所以添加文件
+$ git add file1.txt
+$ git add file2.txt file3.txt
+$ git commit -m "add 3 files."
+
+PS:
+提交前需要确保 set your account's default identity
+
+$ git config --global user.email "lshch.lshch@qq.com"
+$ git config --global user.name "cc"
+
+相关报错提示
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+
+to set your account's default identity.
+Omit --global to set the identity only in this repository.
+
+fatal: empty ident name (for <(NULL)>) not allowed
+
+4.修改提交文件
+4.1修改文件readme.txt
+4.2更改后查看仓库当前的状态 $ git status
+4.3查看具体修改了什么内容 $ git diff readme.txt
+
+5.版本回退
+5.1查看历史记录 $ git log
+5.2查看简洁的历史记录 $ git log --pretty=oneline
+5.3回退当前版本至上一个版本 $ git reset --hard HEAD^（上上一个版本就是HEAD^^ 或者 HEAD~2）
+5.4查看回退后的文件 $ cat readme.txt
+5.5指定回到的某个版本 $ git reset --hard commit_id版本号（可简写前几位）
+5.6查看记录下你的每一次命令 $ git reflog (可以看到每一次提交的commit_id便于回退到任意版本)
+
+6.管理修改
+6.1查看工作区和版本库里面最新版本的区别 $ git diff HEAD -- readme.txt
+
+7.撤销修改
+7.1丢弃工作区的修改 $ git checkout -- <file> (让这个文件回到最近一次git commit或git add时的状态)
+7.2把暂存区的修改撤销掉（unstage），重新放回工作区 $ git reset HEAD <file> （再结合$ git checkout -- <file>即可撤销修改掉暂存区的文件file）
+7.3撤销修改已提交的文件：参考同5小节版本回退方法
+
+PS：
+命令git checkout -- readme.txt意思就是，把readme.txt文件在工作区的修改全部撤销，这里有两种情况：
+一种是readme.txt自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；
+一种是readme.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。
+git checkout其实是用版本库里的版本替换工作区的版本，无论工作区是修改还是删除，都可以“一键还原;
+git reset命令既可以回退版本，也可以把暂存区的修改回退到工作区。当我们用HEAD时，表示最新的版本。
+
+8.删除文件
+8.1类似本地操作删除 $ rm <file> (或直接在文件管理器中把没用的文件删了)
+8.2从版本库中删除该文件 $ git rm <file> (执行 $ git commit -m ""后生效)
+
+PS:
+文件被人为删除后，工作区和版本库就不一致了，可用git status命令查看哪些文件被删除了;
+现在有两个选择，一是确实要从版本库中删除该文件，那就用命令git rm删掉，并且git commit;
+另一种情况是删错了，因为版本库里还有呢，所以可以很轻松地把误删的文件恢复到最新版本:$ git checkout -- <file>;
+
+!!!补充：
+1.Git窗口退出时显示stopped的解决办法
+1.1.输入exit指令
+1.1.1
+$ exit
+输出：
+logout
+There are stopped jobs.
+
+1.1.2查看隐藏的进程
+$ jobs -l
+输出：
+[1]+  Stopped                 vim test.txt
+bash: jobs: l: no such job
+
+1.1.3清理stopped进程
+$ kill 进程ID （亲测后仍有问题）
+$ kill -9 进程ID (问题解决)
+
+1.2直接点击窗口打叉
+
+2.VIM中的保存和退出、VIM退出命令、如何退出vim编辑、VIM命令大全
+2.1退出命令是，按ESC键 跳到命令模式，然后输入:q（不保存）或者:wq（保存） 退出。
+2.2更多退出命令：
+:w 保存文件但不退出vi 
+:w file 将修改另外保存到file中，不退出vi 
+:w! 强制保存，不推出vi 
+:wq 保存文件并退出vi 
+:wq! 强制保存文件，并退出vi 
+:q 不保存文件，退出vi 
+:q! 不保存文件，强制退出vi 
+:e! 放弃所有修改，从上次保存文件开始再编辑命令历史
+2.3详细说明参考：https://blog.csdn.net/feosun/article/details/73196299
