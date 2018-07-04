@@ -145,4 +145,7 @@ PS:
 10.2.5查看分支历史 $ git log
 
 10.3储存分支
-10.3.1
+10.3.1“储藏”工作现场 $ git stash
+10.3.2查看工作现场 $ git stash list
+10.3.3恢复工作现场 1)$ git stash pop恢复并删除现场; 2)$ git stash apply恢复但不删除现场（用$ git stash drop删除）
+10.3.4恢复指定的stash $ git stash apply stash@{0}
