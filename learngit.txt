@@ -138,8 +138,11 @@ PS:
 	
 10.2分支管理策略
 10.2.1创建并切换分支 $ git checkout -b dev
-10.2.2修改仓库文件并提交
+10.2.2修改仓库文件并提交 
 10.2.3切换回master $ git checkout master
 10.2.4禁用Fast forward模式合并分支 $ git merge --no-ff -m "merge with no-ff" dev 
 	（--no-ff参数，表示禁用Fast forward，因为本次合并要创建一个新的commit，所以加上-m参数，把commit描述写进去）
 10.2.5查看分支历史 $ git log
+
+10.3储存分支
+10.3.1
