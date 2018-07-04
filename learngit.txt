@@ -13,15 +13,15 @@ learngit_note_learnBy:(Git教程 - 廖雪峰的官方网站)https://www.liaoxuefeng.com/wi
 3.2添加文件至版本库 $ git add readme.txt（把要提交的所有修改放到暂存区（Stage））
 3.3把文件提交到仓库 $ git commit -m "改动记录描述说明" （一次性把暂存区的所有修改提交到分支）
 3.4可添加多个文件并一次性提交所以添加文件
-$ git add file1.txt
-$ git add file2.txt file3.txt
-$ git commit -m "add 3 files."
+	$ git add file1.txt
+	$ git add file2.txt file3.txt
+	$ git commit -m "add 3 files."
 
 PS:
 提交前需要确保 set your account's default identity
 
-$ git config --global user.email "lshch.lshch@qq.com"
-$ git config --global user.name "cc"
+	$ git config --global user.email "lshch.lshch@qq.com"
+	$ git config --global user.name "cc"
 
 相关报错提示
 *** Please tell me who you are.
@@ -73,36 +73,73 @@ PS:
 现在有两个选择，一是确实要从版本库中删除该文件，那就用命令git rm删掉，并且git commit;
 另一种情况是删错了，因为版本库里还有呢，所以可以很轻松地把误删的文件恢复到最新版本:$ git checkout -- <file>;
 
-!!!补充：
-1.Git窗口退出时显示stopped的解决办法
-1.1.输入exit指令
-1.1.1
-$ exit
-输出：
-logout
-There are stopped jobs.
+				!!!补充：
+				1.Git窗口退出时显示stopped的解决办法
+				1.1.输入exit指令
+				1.1.1
+				$ exit
+				输出：
+				logout
+				There are stopped jobs.
 
-1.1.2查看隐藏的进程
-$ jobs -l
-输出：
-[1]+  Stopped                 vim test.txt
-bash: jobs: l: no such job
+				1.1.2查看隐藏的进程
+				$ jobs -l
+				输出：
+				[1]+  Stopped                 vim test.txt
+				bash: jobs: l: no such job
 
-1.1.3清理stopped进程
-$ kill 进程ID （亲测后仍有问题）
-$ kill -9 进程ID (问题解决)
+				1.1.3清理stopped进程
+				$ kill 进程ID （亲测后仍有问题）
+				$ kill -9 进程ID (问题解决)
 
-1.2直接点击窗口打叉
+				1.2直接点击窗口打叉
 
-2.VIM中的保存和退出、VIM退出命令、如何退出vim编辑、VIM命令大全
-2.1退出命令是，按ESC键 跳到命令模式，然后输入:q（不保存）或者:wq（保存） 退出。
-2.2更多退出命令：
-:w 保存文件但不退出vi 
-:w file 将修改另外保存到file中，不退出vi 
-:w! 强制保存，不推出vi 
-:wq 保存文件并退出vi 
-:wq! 强制保存文件，并退出vi 
-:q 不保存文件，退出vi 
-:q! 不保存文件，强制退出vi 
-:e! 放弃所有修改，从上次保存文件开始再编辑命令历史
-2.3详细说明参考：https://blog.csdn.net/feosun/article/details/73196299
+				2.VIM中的保存和退出、VIM退出命令、如何退出vim编辑、VIM命令大全
+				2.1退出命令是，按ESC键 跳到命令模式，然后输入:q（不保存）或者:wq（保存） 退出。
+				2.2更多退出命令：
+				:w 保存文件但不退出vi 
+				:w file 将修改另外保存到file中，不退出vi 
+				:w! 强制保存，不推出vi 
+				:wq 保存文件并退出vi 
+				:wq! 强制保存文件，并退出vi 
+				:q 不保存文件，退出vi 
+				:q! 不保存文件，强制退出vi 
+				:e! 放弃所有修改，从上次保存文件开始再编辑命令历史
+				2.3详细说明参考：https://blog.csdn.net/feosun/article/details/73196299
+
+9.远程仓库
+9.1创建SSH Key $ ssh-keygen -t rsa -C "youremail@example.com"
+9.2将在主目录下生成的公钥设置在远程仓库的ssh key中
+9.3关联远程仓库 $ git remote add origin git@github.com:michaelliao/learngit.git 
+		（origin为自定义远程仓库名，git@github.com:michaelliao/learngit.git是当前使用远程git仓库的路径）
+9.4把本地库的所有内容推送到远程库上 $ git push -u origin master（第一次提交带 -u,以后提交可简化;origin 自定义远程仓库名）
+9.5查看所有关联的远程仓库 $ git remote -v
+9.6从远程仓库克隆 $ git clone git@github.com:michaelliao/gitskills.git （git@github.com:michaelliao/gitskills.git为克隆目的远程git仓库的路径）
+
+10分支管理
+10.1创建与合并分支
+10.1.1创建并切换分支 $ git checkout -b dev （git checkout命令加上-b参数表示创建并切换)
+10.1.2创建分支 $ git branch dev
+10.1.3切换分支 $ git checkout dev
+10.1.4查看当前分支 $ git branch
+10.1.5修改仓库文件并提交 $ git add readme.txt   $ git commit -m "branch test"
+10.1.6dev分支的工作完成，切换回master分支 $ git checkout master 
+10.1.7把dev分支的工作成果合并到master分支上 $ git merge dev (默认为Fast forward模式合并)
+10.1.8合并成功后，删除dev分支 $ git branch -d dev
+	PS:命令总结
+	查看分支：git branch
+	创建分支：git branch <name>
+	切换分支：git checkout <name>
+	创建+切换分支：git checkout -b <name>
+	合并某分支到当前分支：git merge <name>
+	删除分支：git branch -d <name>
+	看到分支合并图 $ git log --graph
+	当切换到master后未合并删除分支前,修改提交master中内容会引发冲突，解决冲突的办法是将master中的内容更改成分支中修改后的内容再添加提交，最后再删除分支；
+	
+10.2分支管理策略
+10.2.1创建并切换分支 $ git checkout -b dev
+10.2.2修改仓库文件并提交
+10.2.3切换回master $ git checkout master
+10.2.4禁用Fast forward模式合并分支 $ git merge --no-ff -m "merge with no-ff" dev 
+	（--no-ff参数，表示禁用Fast forward，因为本次合并要创建一个新的commit，所以加上-m参数，把commit描述写进去）
+10.2.5查看分支历史 $ git log
