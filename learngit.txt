@@ -1,4 +1,5 @@
-learngit_note_learnBy:(Git教程 - 廖雪峰的官方网站)https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000
+learngit_note_learnBy:
+(Git教程 - 廖雪峰的官方网站)https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000
 
 1.创建一个版本库
 1.1创建一个空目录 $ mkdir learngit
@@ -150,4 +151,19 @@ PS:
 10.3.3恢复工作现场 1)$ git stash pop恢复并删除现场; 2)$ git stash apply恢复但不删除现场（用$ git stash drop删除）
 10.3.4恢复指定的stash $ git stash apply stash@{0}
 
+10.4多人协作
+10.4.1推送自己的修改 $ git push origin <branch-name>
+10.4.2如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并
+10.4.3如果合并有冲突，则解决冲突，并在本地提交；
+10.4.4没有冲突或者解决掉冲突后，再用git push origin <branch-name>推送就能成功
+	如果git pull提示no tracking information，则说明本地分支和远程分支的链接关系没有创建,
+	用命令git branch --set-upstream-to <branch-name> origin/<branch-name>
+		
+		补充：
+			查看远程库信息，使用git remote -v
+			本地新建的分支如果不推送到远程，对其他人就是不可见的;
+			从本地推送分支，使用git push origin branch-name，如果推送失败，先用git pull抓取远程的新提交
+			在本地创建和远程分支对应的分支，使用git checkout -b branch-name origin/branch-name，本地和远程分支的名称最好一致；
+			建立本地分支和远程分支的关联，使用git branch --set-upstream branch-name origin/branch-name
+			从远程抓取分支，使用git pull，如果有冲突，要先处理冲突
 
